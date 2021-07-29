@@ -1,44 +1,31 @@
-import urllib.request
-import json
+from Pipeline.steps.get_video_list import GetVideoList
+from Pipeline.steps.step import StepException
 
-# 1. save in file
-from settings import API_KEY
-
-# 2. save in env var
-# import os
-# API_KEY = os.getenv('API_KEY')
-
-# print(API_KEY)
+from Pipeline.pipline import Pipeline
 
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
 
 
-def get_all_video_in_channel(channel_id):
+def main():
+    inputs = {
+        'channel_id': CHANNEL_ID
+    }
 
-    base_video_url = 'https://www.youtube.com/watch?v='
-    base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
+    steps = [
+        GetVideoList(),
+    ]
 
-    first_url = base_search_url + \
-        'key={}&channelId={}&part=snippet,id&order=date&maxResults=25'.format(
-            api_key, channel_id)
-
-    video_links = []
-    url = first_url
-    while True:
-        inp = urllib.request.urlopen(url)
-        resp = json.load(inp)
-
-        for i in resp['items']:
-            if i['id']['kind'] == "youtube#video":
-                video_links.append(base_video_url + i['id']['videoId'])
-
-        try:
-            next_page_token = resp['nextPageToken']
-            url = first_url + '&pageToken={}'.format(next_page_token)
-        except KeyError:
-            break
-    return video_links
+    data = None
+    p = Pipeline(steps)
+    p.run(inputs)
 
 
-video_list = get_all_video_in_channel(CHANNEL_ID)
-print(len(video_list))
+# for step in steps:
+#     try:
+#         step.process()
+#     except StepException as e:
+#         print('Exception happened in step', e)
+#         break
+
+if __name__ == '__main__':
+    main()
