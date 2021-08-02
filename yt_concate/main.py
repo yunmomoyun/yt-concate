@@ -1,7 +1,10 @@
+from util import Utils
 from Pipeline.steps.get_video_list import GetVideoList
-from Pipeline.steps.step import StepException
-
+from Pipeline.steps.download_captions import DownloadCaptions
 from Pipeline.pipline import Pipeline
+from Pipeline.steps.step import StepException
+from Pipeline.steps.preflight import Preflight
+from Pipeline.steps.postflight import Postflight
 
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
 
@@ -12,12 +15,15 @@ def main():
     }
 
     steps = [
+        Preflight(),
         GetVideoList(),
+        DownloadCaptions(),
+        Postflight(),
     ]
 
-    data = None
+    utils = Utils()
     p = Pipeline(steps)
-    p.run(inputs)
+    p.run(inputs, utils)
 
 
 # for step in steps:

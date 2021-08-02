@@ -1,13 +1,13 @@
 import urllib.request
 import json
 
-from .step import Step
-from .step import StepException
-from ..settings import API_KEY
+from Pipeline.steps.step import Step
+from Pipeline.steps.step import StepException
+from settings import API_KEY
 
 
 class GetVideoList(Step):
-    def process(self, data, inputs):
+    def process(self, data, inputs, utils):
         channel_id = inputs['channel_id']
         base_video_url = 'https://www.youtube.com/watch?v='
         base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
@@ -35,7 +35,11 @@ class GetVideoList(Step):
             except KeyError:
                 break
         print(video_links)
+        self.write_to_file(video_links)
         return video_links
 
 
-print(sys.path)
+def write_to_file(self, video_link, filepath):
+    with open(filepath, 'w') as f:
+        for url in video_link:
+            f.write(url + '\n')
