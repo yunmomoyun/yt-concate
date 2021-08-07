@@ -1,5 +1,5 @@
-from yt_concate.Pipeline.steps.step import StepException
-from yt_concate.Pipeline.steps.step import Step
+from .step import StepException
+from .step import Step
 from yt_concate.util import utils
 from pytube import YouTube
 import time
