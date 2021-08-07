@@ -1,10 +1,10 @@
-from util import Utils
-from Pipeline.steps.get_video_list import GetVideoList
-from Pipeline.steps.download_captions import DownloadCaptions
-from Pipeline.pipline import Pipeline
-from Pipeline.steps.step import StepException
-from Pipeline.steps.preflight import Preflight
-from Pipeline.steps.postflight import Postflight
+from yt_concate.util import utils
+from yt_concate.Pipeline.steps.get_video_list import GetVideoList
+from yt_concate.Pipeline.steps.download_captions import DownloadCaptions
+from yt_concate.Pipeline.pipline import Pipeline
+from yt_concate.Pipeline.steps.step import StepException
+from yt_concate.Pipeline.steps.preflight import Preflight
+from yt_concate.Pipeline.steps.postflight import Postflight
 
 CHANNEL_ID = 'UCKSVUHI9rbbkXhvAXK-2uxA'
 
