@@ -1,4 +1,4 @@
-from .step import Step
+from yt_concate.Pipeline.steps.step import Step
 from yt_concate.model.yt import YT
 
 
